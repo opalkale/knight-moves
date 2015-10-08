@@ -84,16 +84,22 @@ def knight_moves(matrix, word):
 
 
 def main():
+
+  # Removes empty strings from a list.
+  def remove_empty_words(list_of_words):
+    for word in list_of_words:
+      if word == '':
+        list_of_words.remove(word)
   
   # Reads from matrix.txt to create a list of letters that represent rows in a matrix.
   matrix_file = open("matrix.txt", "r")
   matrix_list = matrix_file.read().split("\n")
-  matrix_list.remove('')
+  remove_empty_words(matrix_list)
 
   # Reads from wordlist.txt to create a list of words.
   word_file = open("wordlist.txt", "r")
   word_list = word_file.read().split("\r\n")
-  word_list.remove('')
+  remove_empty_words(word_list)
 
   # Creates a matrix.
   matrix = Matrix(matrix_list)
@@ -113,12 +119,18 @@ def main():
   
   test_word_list = ["ALGOL", "FORTRAN", "SIMULA"]
   '''
-  # Prints list of all the words found in the matrix.
+
+  # Creates a list of all the words found in the matrix.
   words_found_in_matrix = []
   for word in word_list:
     found = knight_moves(matrix, word)
     if found == True:
       words_found_in_matrix.append(word)
-  print(words_found_in_matrix)
+
+  sorted(words_found_in_matrix)
+
+  print("Found " + str(len(words_found_in_matrix)) + " words in the matrix")
+  print("The first match is " + (words_found_in_matrix[0]) + " and the last match is " + (words_found_in_matrix[-1]))
+  
 
 main()
