@@ -84,22 +84,19 @@ def knight_moves(matrix, word):
 
 
 def main():
+  
+  matrix_file = open("matrix.txt", "r")
+  matrix_list = matrix_file.read().split("\n")
+  matrix_list.remove('')
+
   # Creating matrix.
-  matrix = Matrix([
-  'EOWZKERT',
-  'CCMNNTSC',
-  'QPXIGRJR',
-  'LNDYCKYE',
-  'GDRCGWXT',
-  'QDPTDLCA',
-  'WYCDHCUH',
-  'PUPQYAED'])
+  matrix = Matrix(matrix_list)
 
   # Word to be looked for in matrix.
   word_file = open("wordlist.txt", "r")
   words_list = word_file.read().split("\r\n")
-  print(words_list)
-  
+  words_list.remove('')
+
   list_answers = []
   for word in words_list:
     answer = knight_moves(matrix, words_list)
