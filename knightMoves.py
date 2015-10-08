@@ -43,7 +43,7 @@ class Matrix:
     for square in self.squares:
       if letter == square.letter:
         squares_list.append(square)
-        print(square.row, square.column)
+        #print(square.row, square.column)
     return squares_list
 
   # Returns the square in the matrix with a given position
@@ -84,7 +84,6 @@ def knight_moves(matrix, word):
 
 
 def main():
-
   # Creating matrix.
   matrix = Matrix([
   'EOWZKERT',
@@ -97,10 +96,15 @@ def main():
   'PUPQYAED'])
 
   # Word to be looked for in matrix.
-  words_list = 'ACHEY'
-
-
-  answer = knight_moves(matrix, words_list)
-  print(answer)
+  word_file = open("wordlist.txt", "r")
+  words_list = word_file.read().split("\r\n")
+  print(words_list)
+  
+  list_answers = []
+  for word in words_list:
+    answer = knight_moves(matrix, words_list)
+    if answer == True:
+      list_answers.append(word)
+  print(list_answers)
 
 main()
