@@ -1,5 +1,5 @@
 class Matrix:
-  # Given a list of list of lines, creates a matrix.
+  # Given a list of list of lines, creates a matrix consisting of squares.
   def __init__(self, list_of_lines):
     self.squares = []
 
@@ -12,13 +12,12 @@ class Matrix:
         square = Square(row, column, letter)
         self.squares.append(square)
 
-
-  # Prints all the squares in the matrix
+  # Prints all the squares in the matrix.
   def print_squares(self):
     for square in self.squares:
       print(square.position, square.letter)
 
-  # Returns all the knight moves given a position
+  # Returns all the possible knight moves given a position.
   def possible_moves(self, row, column):
     all_moves = [
       self.square_with_position(row + 1, column + 2),
@@ -43,15 +42,16 @@ class Matrix:
     for square in self.squares:
       if letter == square.letter:
         squares_list.append(square)
-        #print(square.row, square.column)
     return squares_list
 
-  # Returns the square in the matrix with a given position
+  # Returns the square in the matrix with a given position.
   def square_with_position(self, row, column):
     for square in self.squares:
       if [row, column] == square.position:
         return square
     return False
+
+
 
 class Square:
   # Squares have position and a letter at that position.
@@ -61,6 +61,8 @@ class Square:
     self.letter = letter
     self.position = [row,column]
 
+
+# Given a matrix and a word, returns 'True' if the word is in matrix, and 'None' otherwise.
 def knight_moves(matrix, word):
     if len(word) == 0:
       return True
@@ -81,27 +83,42 @@ def knight_moves(matrix, word):
                 return knight_moves(matrix, word[1:])
 
 
-
-
 def main():
   
+  # Reads from matrix.txt to create a list of letters that represent rows in a matrix.
   matrix_file = open("matrix.txt", "r")
   matrix_list = matrix_file.read().split("\n")
   matrix_list.remove('')
 
-  # Creating matrix.
+  # Reads from wordlist.txt to create a list of words.
+  word_file = open("wordlist.txt", "r")
+  word_list = word_file.read().split("\r\n")
+  word_list.remove('')
+
+  # Creates a matrix.
   matrix = Matrix(matrix_list)
 
-  # Word to be looked for in matrix.
-  word_file = open("wordlist.txt", "r")
-  words_list = word_file.read().split("\r\n")
-  words_list.remove('')
-
-  list_answers = []
-  for word in words_list:
-    answer = knight_moves(matrix, words_list)
-    if answer == True:
-      list_answers.append(word)
-  print(list_answers)
+  # Test matrix and words.
+  '''
+  test_matrix = Matrix([
+    'QWERTNUI',
+    'OPAADFGH',
+    'TKLZXCVB',
+    'NMRWFRTY',
+    'UIOPASDF',
+    'GHJOLZXC',
+    'VBNMQWER',
+    'TYUIOPAS'
+    ])
+  
+  test_word_list = ["ALGOL", "FORTRAN", "SIMULA"]
+  '''
+  # Prints list of all the words found in the matrix.
+  words_found_in_matrix = []
+  for word in word_list:
+    found = knight_moves(matrix, word)
+    if found == True:
+      words_found_in_matrix.append(word)
+  print(words_found_in_matrix)
 
 main()
