@@ -1,3 +1,6 @@
+'''
+This is not the most optimal way to do this. If we memoize the words, we can reduce the cost of the operations significantly.
+'''
 class Matrix:
   # Given a list of list of lines, creates a matrix consisting of squares.
   def __init__(self, list_of_lines):
